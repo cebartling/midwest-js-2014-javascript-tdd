@@ -1,0 +1,11 @@
+{
+  "generator-backbone": {
+    "appPath": "app",
+    "appName": "EarthquakesMap",
+    "testFramework": "mocha",
+    "templateFramework": "lodash",
+    "coffee": true,
+    "compassBootstrap": true,
+    "includeRequireJS": false
+  }
+}
