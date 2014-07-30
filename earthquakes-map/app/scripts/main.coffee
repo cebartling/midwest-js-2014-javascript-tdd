@@ -1,12 +1,9 @@
 window.EarthquakesMap =
-  Models: {}
-  Collections: {}
-  Views: {}
-  Routers: {}
-  init: ->
-    'use strict'
-    console.log 'Hello from Backbone!'
+
+    init: ->
+        'use strict'
+        console.log 'Hello from Backbone!'
 
 $ ->
-  'use strict'
-  EarthquakesMap.init();
+    'use strict'
+    EarthquakesMap.init();
