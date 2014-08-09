@@ -20,9 +20,9 @@
             });
 
             it('creates a new L.Map object and assigns it to the mapObj property', function () {
-                var spy = spyOn(L, 'Map').and.callThrough();
+                var spy = spyOn(L, 'map').and.callThrough();
                 var mapView = new EarthquakeMap.MapView();
-                expect(spy).toHaveBeenCalledWith('map');
+                expect(spy).toHaveBeenCalledWith('map', { center : [ 44.9833, -93.2667 ], zoom : 2 });
                 expect(mapView.mapObj instanceof L.Map).toBeTruthy();
             });
 
@@ -66,7 +66,7 @@
                     mapView.init();
                     expect(mapSpy).toHaveBeenCalled();
                     expect(mapSpy.calls.mostRecent().args[0] instanceof L.LatLng).toBeTruthy();
-                    expect(mapSpy.calls.mostRecent().args[1]).toBe(3);
+                    expect(mapSpy.calls.mostRecent().args[1]).toBe(2);
                 });
 
                 it('calls addLayer on the Map object', function () {

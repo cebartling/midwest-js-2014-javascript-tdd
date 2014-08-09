@@ -4,7 +4,10 @@ EarthquakeMap.MapView = (function () {
 
     function MapView() {
         this.tileUrl = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-        this.mapObj = new L.Map('map');
+        this.mapObj = L.map('map', {
+            center: [44.9833, -93.2667],
+            zoom: 2
+        });
         this.tileLayer = new L.TileLayer(this.tileUrl, {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
             maxZoom: 18
@@ -14,7 +17,7 @@ EarthquakeMap.MapView = (function () {
 
     MapView.prototype.init = function () {
         var latLong = new L.LatLng(44.9833, -93.2667);
-        var zoom = 3;
+        var zoom = 2;
         this.mapObj.setView(latLong, zoom)
         this.mapObj.addLayer(this.tileLayer);
         this.isInitialized = true;
