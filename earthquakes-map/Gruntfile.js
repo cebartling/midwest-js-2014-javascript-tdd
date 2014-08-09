@@ -33,14 +33,6 @@ module.exports = function (grunt) {
                 nospawn: true,
                 livereload: true
             },
-//            coffee: {
-//                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-//                tasks: ['coffee:dist']
-//            },
-//            coffeeTest: {
-//                files: ['test/spec/{,*/}*.coffee'],
-//                tasks: ['coffee:test']
-//            },
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
@@ -58,12 +50,6 @@ module.exports = function (grunt) {
                     '<%= yeoman.test %>/spec/**/*.js'
                 ]
             },
-//            handlebars: {
-//                files: [
-//                    '<%= yeoman.app %>/scripts/templates/*.hbs'
-//                ],
-//                tasks: ['handlebars']
-//            },
             test: {
                 files: [
                     '<%= yeoman.app %>/scripts/{,*/}*.js',
@@ -138,40 +124,26 @@ module.exports = function (grunt) {
 //        },
         jasmine: {
             all:{
-                src : '/scripts/{,*/}*.js',
+                src : [
+                    '<%= yeoman.app %>/scripts/namespaces.js',
+                    '<%= yeoman.app %>/scripts/earthquake_map_view.js'
+                ],
                 options: {
                     keepRunner: true,
                     specs : '<%= yeoman.test %>/spec/**/*_spec.js',
                     vendor : [
                         '<%= yeoman.app %>/bower_components/jquery/dist/jquery.js',
                         '<%= yeoman.app %>/bower_components/leaflet/dist/leaflet.js',
-                        '<%= yeoman.app %>/bower_components/lodash/dist/lodash.js'
+                        '<%= yeoman.app %>/bower_components/lodash/dist/lodash.js',
+                        '<%= yeoman.test %>/bower_components/jasmine-jquery/lib/jasmine-jquery.js'
+                    ],
+                    helpers : [
+//                        '<%= yeoman.test %>/spec/javascripts/fixtures/earthquake-data.json',
+                        '<%= yeoman.test %>/spec/javascripts/helpers/spec-helpers.js'
                     ]
                 }
             }
         },
-//        coffee: {
-//            dist: {
-//                files: [{
-//                    // rather than compiling multiple files here you should
-//                    // require them into your main .coffee file
-//                    expand: true,
-//                    cwd: '<%= yeoman.app %>/scripts',
-//                    src: '{,*/}*.coffee',
-//                    dest: '.tmp/scripts',
-//                    ext: '.js'
-//                }]
-//            },
-//            test: {
-//                files: [{
-//                    expand: true,
-//                    cwd: 'test/spec',
-//                    src: '{,*/}*.coffee',
-//                    dest: '.tmp/spec',
-//                    ext: '.js'
-//                }]
-//            }
-//        },
         compass: {
             options: {
                 sassDir: '<%= yeoman.app %>/styles',
