@@ -1,0 +1,12 @@
+{
+  "name": "earthquakes-map",
+  "version": "0.0.0",
+  "dependencies": {
+    "jasmine": "~2.0.1",
+    "jasmine-jquery": "~2.0.5"
+  },
+  "devDependencies": {},
+  "resolutions": {
+    "jasmine": ">=2"
+  }
+}

@@ -22,7 +22,8 @@ module.exports = function (grunt) {
     // configurable paths
     var yeomanConfig = {
         app: 'app',
-        dist: 'dist'
+        dist: 'dist',
+        test: 'test'
     };
 
     grunt.initConfig({
@@ -32,14 +33,14 @@ module.exports = function (grunt) {
                 nospawn: true,
                 livereload: true
             },
-            coffee: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-                tasks: ['coffee:dist']
-            },
-            coffeeTest: {
-                files: ['test/spec/{,*/}*.coffee'],
-                tasks: ['coffee:test']
-            },
+//            coffee: {
+//                files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
+//                tasks: ['coffee:dist']
+//            },
+//            coffeeTest: {
+//                files: ['test/spec/{,*/}*.coffee'],
+//                tasks: ['coffee:test']
+//            },
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
@@ -54,17 +55,20 @@ module.exports = function (grunt) {
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                     '<%= yeoman.app %>/scripts/templates/*.{ejs,mustache,hbs}',
-                    'test/spec/**/*.js'
+                    '<%= yeoman.test %>/spec/**/*.js'
                 ]
             },
-            handlebars: {
-                files: [
-                    '<%= yeoman.app %>/scripts/templates/*.hbs'
-                ],
-                tasks: ['handlebars']
-            },
+//            handlebars: {
+//                files: [
+//                    '<%= yeoman.app %>/scripts/templates/*.hbs'
+//                ],
+//                tasks: ['handlebars']
+//            },
             test: {
-                files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'test/spec/**/*.js'],
+                files: [
+                    '<%= yeoman.app %>/scripts/{,*/}*.js',
+                    '<%= yeoman.test %>/spec/**/*.js'
+                ],
                 tasks: ['test:true']
             }
         },
@@ -92,7 +96,7 @@ module.exports = function (grunt) {
                         return [
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'test'),
+                            mountFolder(connect, '<%= yeoman.test %>/spec'),
                             mountFolder(connect, yeomanConfig.app)
                         ];
                     }
@@ -120,55 +124,54 @@ module.exports = function (grunt) {
             dist: ['.tmp', '<%= yeoman.dist %>/*'],
             server: '.tmp'
         },
-        jshint: {
-            options: {
-                jshintrc: '.jshintrc',
-                reporter: require('jshint-stylish')
-            },
-            all: [
-                'Gruntfile.js',
-                '<%= yeoman.app %>/scripts/{,*/}*.js',
-                '!<%= yeoman.app %>/scripts/vendor/*',
-                'test/spec/{,*/}*.js'
-            ]
-        },
+//        jshint: {
+//            options: {
+//                jshintrc: '.jshintrc',
+//                reporter: require('jshint-stylish')
+//            },
+//            all: [
+//                'Gruntfile.js',
+//                '<%= yeoman.app %>/scripts/{,*/}*.js',
+//                '!<%= yeoman.app %>/scripts/vendor/*',
+//                '<%= yeoman.test %>/spec/{,*/}*.js'
+//            ]
+//        },
         jasmine: {
             all:{
                 src : '/scripts/{,*/}*.js',
                 options: {
                     keepRunner: true,
-                    specs : 'test/spec/**/*.js',
+                    specs : '<%= yeoman.test %>/spec/**/*_spec.js',
                     vendor : [
                         '<%= yeoman.app %>/bower_components/jquery/dist/jquery.js',
-                        '<%= yeoman.app %>/bower_components/lodash/dist/lodash.js',
-                        '<%= yeoman.app %>/bower_components/backbone/backbone.js',
-                        '.tmp/scripts/templates.js'
+                        '<%= yeoman.app %>/bower_components/leaflet/dist/leaflet.js',
+                        '<%= yeoman.app %>/bower_components/lodash/dist/lodash.js'
                     ]
                 }
             }
         },
-        coffee: {
-            dist: {
-                files: [{
-                    // rather than compiling multiple files here you should
-                    // require them into your main .coffee file
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/scripts',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
-                    ext: '.js'
-                }]
-            },
-            test: {
-                files: [{
-                    expand: true,
-                    cwd: 'test/spec',
-                    src: '{,*/}*.coffee',
-                    dest: '.tmp/spec',
-                    ext: '.js'
-                }]
-            }
-        },
+//        coffee: {
+//            dist: {
+//                files: [{
+//                    // rather than compiling multiple files here you should
+//                    // require them into your main .coffee file
+//                    expand: true,
+//                    cwd: '<%= yeoman.app %>/scripts',
+//                    src: '{,*/}*.coffee',
+//                    dest: '.tmp/scripts',
+//                    ext: '.js'
+//                }]
+//            },
+//            test: {
+//                files: [{
+//                    expand: true,
+//                    cwd: 'test/spec',
+//                    src: '{,*/}*.coffee',
+//                    dest: '.tmp/spec',
+//                    ext: '.js'
+//                }]
+//            }
+//        },
         compass: {
             options: {
                 sassDir: '<%= yeoman.app %>/styles',
@@ -263,16 +266,16 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        handlebars: {
-            compile: {
-                options: {
-                    namespace: 'JST'
-                },
-                files: {
-                    '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.hbs']
-                }
-            }
-        },
+//        handlebars: {
+//            compile: {
+//                options: {
+//                    namespace: 'JST'
+//                },
+//                files: {
+//                    '.tmp/scripts/templates.js': ['<%= yeoman.app %>/scripts/templates/*.hbs']
+//                }
+//            }
+//        },
         rev: {
             dist: {
                 files: {
@@ -288,14 +291,14 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('createDefaultTemplate', function () {
-        grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
-    });
+//    grunt.registerTask('createDefaultTemplate', function () {
+//        grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
+//    });
 
-    grunt.registerTask('server', function (target) {
-        grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-        grunt.task.run(['serve' + (target ? ':' + target : '')]);
-    });
+//    grunt.registerTask('server', function (target) {
+//        grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+//        grunt.task.run(['serve' + (target ? ':' + target : '')]);
+//    });
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
@@ -305,9 +308,9 @@ module.exports = function (grunt) {
         if (target === 'test') {
             return grunt.task.run([
                 'clean:server',
-                'coffee',
-                'createDefaultTemplate',
-                'handlebars',
+//                'coffee',
+//                'createDefaultTemplate',
+//                'handlebars',
                 'compass:server',
                 'connect:test',
                 'open:test',
@@ -317,9 +320,9 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'coffee:dist',
-            'createDefaultTemplate',
-            'handlebars',
+//            'coffee:dist',
+//            'createDefaultTemplate',
+//            'handlebars',
             'compass:server',
             'connect:livereload',
             'open:server',
@@ -331,9 +334,9 @@ module.exports = function (grunt) {
         isConnected = Boolean(isConnected);
         var testTasks = [
                 'clean:server',
-                'coffee',
-                'createDefaultTemplate',
-                'handlebars',
+//                'coffee',
+//                'createDefaultTemplate',
+//                'handlebars',
                 'compass',
                 'jasmine'
             ];
@@ -349,9 +352,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'coffee',
-        'createDefaultTemplate',
-        'handlebars',
+//        'coffee',
+//        'createDefaultTemplate',
+//        'handlebars',
         'compass:dist',
         'useminPrepare',
         'imagemin',
@@ -365,7 +368,7 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('default', [
-        'jshint',
+//        'jshint',
         'test',
         'build'
     ]);
