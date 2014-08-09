@@ -113,7 +113,7 @@
             });
 
             describe('processResults function', function () {
-                var earthquakeJsonResults, circleConstructorSpy, circleSpy, circle;
+                var earthquakeJsonResults, circle;
 
                 beforeEach(function () {
                     earthquakeJsonResults = window.earthquakeJson();
@@ -125,35 +125,35 @@
                 });
 
                 it('iterates features and creates circle map annotations', function () {
-                    circleConstructorSpy = spyOn(L, 'circle').and.callThrough();
+                    var circleFactoryFuncSpy = spyOn(L, 'circle').and.callThrough();
                     mapView.processResults(earthquakeJsonResults);
-                    expect(circleConstructorSpy.calls.count()).toBe(2);
-                    var argsForFirstCall = circleConstructorSpy.calls.argsFor(0);
+                    expect(circleFactoryFuncSpy.calls.count()).toBe(2);
+                    var argsForFirstCall = circleFactoryFuncSpy.calls.argsFor(0);
                     expect(argsForFirstCall[0]).toEqual([56.6812, -155.0237]);
                     expect(argsForFirstCall[1]).toEqual(Math.pow(10, 3.4));
                     expect(argsForFirstCall[2]).toEqual({color: 'red', fillColor: '#f03', fillOpacity: 0.5});
-                    var argsForSecondCall = circleConstructorSpy.calls.argsFor(1);
+                    var argsForSecondCall = circleFactoryFuncSpy.calls.argsFor(1);
                     expect(argsForSecondCall[0]).toEqual([59.6231, -152.3636]);
                     expect(argsForSecondCall[1]).toEqual(Math.pow(10, 2.8));
                     expect(argsForSecondCall[2]).toEqual({color: 'red', fillColor: '#f03', fillOpacity: 0.5});
                 });
 
                 it('adds each circle to the map', function () {
-                    circleSpy = spyOn(circle, 'addTo');
+                    var addToSpy = spyOn(circle, 'addTo');
                     spyOn(L, 'circle').and.returnValue(circle);
                     mapView.processResults(earthquakeJsonResults);
-                    expect(circleSpy.calls.count()).toBe(2);
-                    expect(circleSpy.calls.argsFor(0)[0]).toBe(mapView.mapObj);
-                    expect(circleSpy.calls.argsFor(1)[0]).toBe(mapView.mapObj);
+                    expect(addToSpy.calls.count()).toBe(2);
+                    expect(addToSpy.calls.argsFor(0)[0]).toBe(mapView.mapObj);
+                    expect(addToSpy.calls.argsFor(1)[0]).toBe(mapView.mapObj);
                 });
 
                 it('binds a popup tooltip to each circle', function () {
-                    circleSpy = spyOn(circle, 'bindPopup');
+                    var bindPopupSpy = spyOn(circle, 'bindPopup');
                     spyOn(L, 'circle').and.returnValue(circle);
                     mapView.processResults(earthquakeJsonResults);
-                    expect(circleSpy.calls.count()).toBe(2);
-                    expect(circleSpy.calls.argsFor(0)[0]).toBe('102km NNE of Chirikof Island, Alaska<br/>Magnitude: 3.4');
-                    expect(circleSpy.calls.argsFor(1)[0]).toBe('34km WSW of Anchor Point, Alaska<br/>Magnitude: 2.8');
+                    expect(bindPopupSpy.calls.count()).toBe(2);
+                    expect(bindPopupSpy.calls.argsFor(0)[0]).toBe('102km NNE of Chirikof Island, Alaska<br/>Magnitude: 3.4');
+                    expect(bindPopupSpy.calls.argsFor(1)[0]).toBe('34km WSW of Anchor Point, Alaska<br/>Magnitude: 2.8');
                 });
             });
         });
