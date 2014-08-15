@@ -3,26 +3,26 @@ User story: Earthquake events are colored per their magnitude
 Acceptance criteria:
 
 1. Show that earthquakes of magnitude less than 1.0, the circle 
-   boundary is #217DBB and the fill color is #3498DB. 
+   boundary color is #217DBB and the fill color is #3498DB. 
 
 2. Show that earthquakes of magnitude less than 2.0 but greater 
-   than or equal to 1.0, the circle boundary is #148F77 and the 
+   than or equal to 1.0, the circle boundary color is #148F77 and the 
    fill color is #1ABC9C. 
 
 3. Show that earthquakes of magnitude less than 3.0 but greater 
-   than or equal to 2.0, the circle boundary is #25A25A and the 
+   than or equal to 2.0, the circle boundary color is #25A25A and the 
    fill color is #2ECC71. 
 
 4. Show that earthquakes of magnitude less than 4.0 but greater 
-   than or equal to 3.0, the circle boundary is #C29D0B and the 
+   than or equal to 3.0, the circle boundary color is #C29D0B and the 
    fill color is #F1C40F. 
 
 5. Show that earthquakes of magnitude less than 5.0 but greater 
-   than or equal to 4.0, the circle boundary is #BF6516 and the 
+   than or equal to 4.0, the circle boundary color is #BF6516 and the 
    fill color is #E67E22. 
 
 6. Show that earthquakes of magnitude greater than 5.0, the 
-   circle boundary is #BA140A and the fill color is #EB1A0C. 
+   circle boundary color is #BA140A and the fill color is #EB1A0C. 
 
 
 		
