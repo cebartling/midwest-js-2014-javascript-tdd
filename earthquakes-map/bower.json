@@ -4,6 +4,7 @@
     "dependencies": {
         "sass-bootstrap": "~3.0.2",
         "jquery": "~2.1.1",
+        "jasmine-jquery": "~2.0.5",
         "lodash": "~2.4.1",
         "modernizr": "~2.7.1",
         "leaflet": "~0.7.3"

@@ -135,7 +135,7 @@ module.exports = function (grunt) {
                         '<%= yeoman.app %>/bower_components/jquery/dist/jquery.js',
                         '<%= yeoman.app %>/bower_components/leaflet/dist/leaflet.js',
                         '<%= yeoman.app %>/bower_components/lodash/dist/lodash.js',
-                        '<%= yeoman.test %>/bower_components/jasmine-jquery/lib/jasmine-jquery.js'
+                        '<%= yeoman.app %>/bower_components/jasmine-jquery/lib/jasmine-jquery.js'
                     ],
                     helpers : [
 //                        '<%= yeoman.test %>/spec/javascripts/fixtures/earthquake-data.json',
@@ -151,7 +151,7 @@ module.exports = function (grunt) {
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
                 fontsDir: '<%= yeoman.app %>/styles/fonts',
-                importPath: '<%= yeoman.app %>/bower_components',
+                raw: 'add_import_path "<%= yeoman.app %>/bower_components" \n',
                 relativeAssets: true
             },
             dist: {},
